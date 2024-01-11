@@ -1,0 +1,19 @@
+{
+  "name": "xml-editor",
+  "version": "1.0.1",
+  "description": "XML Editor Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "XML",
+    "Editor"
+  ],
+  "author": "María-Fernanda Villalobos López",
+  "license": "MIT",
+  "dependencies": {
+    "codemirror": "^6.0.1",
+    "xml-js": "^1.6.11"
+  }
+}

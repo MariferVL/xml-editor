@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor XML</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js"></script>
     <link rel="stylesheet" href="styles.css">
-    
 </head>
 
 <body>
@@ -16,11 +18,14 @@
     <label class="checkbox-container">Guardar Automáticamente
         <input type="checkbox" id="autoSaveCheckbox">
         <span class="checkmark"></span>
+        <span id="saveStatus">Guardado</span>
     </label>
     <button id="saveButton" class="button">Guardar</button>
-    <div class="editor" contenteditable="true" spellcheck="false"></div>
+    <div class="editor-container" id="editor"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="node_modules/codemirror/lib/codemirror.js"></script>
+    <script src="node_modules/codemirror/mode/xml/xml.js"></script>
+    <script src="node_modules/xml-js/dist/xml-js.js"></script>
     <script src="editor.js"></script>
 </body>
 

@@ -1,112 +1,122 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const editor = document.querySelector('.editor');
+    const editorContainer = document.getElementById('editor');
+    let originalContent = '';
+    let currentFileName = '';
+
+    const autoSaveCheckbox = document.getElementById('autoSaveCheckbox');
+    const saveButton = document.getElementById('saveButton');
     const fileInput = document.getElementById('fileInput');
     const loadButton = document.getElementById('loadButton');
-    const saveButton = document.getElementById('saveButton');
-    const autoSaveCheckbox = document.getElementById('autoSaveCheckbox');
+    const saveStatus = document.getElementById('saveStatus');
+
+    autoSaveCheckbox.addEventListener('change', function () {
+        // Si cambia la opción de guardado automático, actualiza el mensaje de estado
+        if (autoSaveCheckbox.checked) {
+            showSaveStatus();
+        }
+    });
+
+    saveButton.addEventListener('click', function () {
+        // Cuando se hace clic en el botón de guardar manualmente
+        saveFile(true);
+    });
+
+
+    function loadFile() {
+        fileInput.click();
+    }
+
 
     loadButton.addEventListener('click', loadFile);
+
+    // Configuración del editor CodeMirror
+    const editor = CodeMirror(editorContainer, {
+        lineNumbers: true,
+        mode: 'xml',
+        theme: 'dracula', // Puedes cambiar el tema según tus preferencias
+        indentUnit: 4,
+        tabSize: 4,
+    });
+
+    /**
+     * Saves the current content to a file and optionally updates the original content.
+     * @param {boolean} manualSave - Indica si el guardado es manual o no.
+     */
+    function saveFile(manualSave = false) {
+        const content = editor.getValue();
+
+        // Si el guardado es automático, sobrescribe el archivo cargado
+        if (autoSaveCheckbox.checked && !manualSave) {
+            if (currentFileName) {
+                const blob = new Blob([content], { type: 'text/xml' });
+
+                // Verifica si el navegador es Internet Explorer
+                if (window.navigator && window.navigator.msSaveBlob) {
+                    window.navigator.msSaveBlob(blob, currentFileName);
+                } else {
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = currentFileName;
+                    a.click();
+                }
+
+                originalContent = content; // Actualiza el contenido original
+                showSaveStatus(); // Muestra el mensaje de estado
+            }
+        } else {
+            // Si el guardado es manual, abre la ventana para elegir la ubicación del archivo
+            const blob = new Blob([content], { type: 'text/xml' });
+
+            // Verifica si el navegador es Internet Explorer
+            if (window.navigator && window.navigator.msSaveBlob) {
+                window.navigator.msSaveBlob(blob, currentFileName || 'edited.xml');
+            } else {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+
+                // Si hay un archivo cargado, mantiene el nombre original
+                if (currentFileName) {
+                    a.download = currentFileName;
+                } else {
+                    a.download = 'edited.xml';
+                }
+
+                document.body.appendChild(a);
+                a.style.display = 'none';
+
+                a.addEventListener('click', function () {
+                    originalContent = content; // Actualiza el contenido original
+                    document.body.removeChild(a);
+                });
+
+                a.click();
+            }
+        }
+    }
 
     fileInput.addEventListener('change', function () {
         const file = fileInput.files[0];
 
         if (file) {
+            currentFileName = file.name; // Almacena el nombre del archivo cargado
             const reader = new FileReader();
 
             reader.onload = function (event) {
-                const content = event.target.result;
-                highlightXML(content);
+                originalContent = event.target.result;
+                editor.setValue(originalContent); // Actualiza el contenido del editor
             };
 
             reader.readAsText(file);
         }
     });
 
-    function highlightXML(content) {
-        editor.innerHTML = `<pre><code class="language-xml">${escapeHtml(content)}</code></pre>`;
-        Prism.highlightAll();
-    }
-
-    editor.addEventListener('click', function (event) {
-        const target = event.target;
-
-        if (target.classList.contains('tag')) {
-            toggleCollapse(target);
-        }
-    });
-
-    function toggleCollapse(target) {
-        const element = target.parentElement;
-        const isCollapsed = element.classList.toggle('collapsed');
-
-        if (isCollapsed) {
-            const content = element.innerHTML;
-            const collapsedContent = content.replace(/&lt;\/?([a-zA-Z]+)([^&gt;]*)&gt;/g, match => {
-                return `<span class="tag">${match}</span>`;
-            });
-
-            element.innerHTML = collapsedContent;
-        } else {
-            const content = element.innerText;
-            element.innerHTML = content;
-            highlightXML(content);
-        }
-    }
-
-    document.addEventListener('keydown', function (event) {
-        if ((event.ctrlKey || event.metaKey) && event.key === 's') {
-            event.preventDefault();
-            saveFile();
-        }
-    });
-
-    saveButton.addEventListener('click', saveFile);
-
-    function saveFile() {
-        const content = editor.innerText;
-        const blob = new Blob([content], { type: 'text/xml' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'edited.xml';
-        a.click();
-
-        // Mostrar mensaje modal de guardado
-        showSaveModal();
-    }
-
-    function showSaveModal() {
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-        modal.innerText = 'Guardado exitoso';
-
-        document.body.appendChild(modal);
-
+    /**
+     * Displays a temporary status message indicating a successful save.
+     */
+    function showSaveStatus() {
+        saveStatus.style.display = 'inline';
         setTimeout(() => {
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                modal.remove();
-            }, 500);
+            saveStatus.style.display = 'none';
         }, 2000);
     }
-
-    // Función para escapar caracteres especiales en HTML
-    function escapeHtml(unsafe) {
-        return unsafe.replace(/[&<>"']/g, function (match) {
-            switch (match) {
-                case '&': return '&amp;';
-                case '<': return '&lt;';
-                case '>': return '&gt;';
-                case '"': return '&quot;';
-                case "'": return '&#039;';
-            }
-        });
-    }
-
-    // Función para cargar un archivo
-    function loadFile() {
-        fileInput.click();
-    }
-
-    // Inicialización
-    highlightXML();
 });
