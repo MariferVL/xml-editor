@@ -15,7 +15,7 @@ This is a simple XML editor designed for engineers working with XML files. It al
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/xml-editor.git
+   git clone https://MariferVL@bitbucket.org/cdtfrontend/xml-editor.git
 
 2. Open index.html in your web browser.
 
