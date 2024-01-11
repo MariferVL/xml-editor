@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor XML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.css">
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<body>
+    <input type="file" id="fileInput" accept=".xml">
+    <button id="loadButton" class="button">Cargar Archivo</button>
+    <label class="checkbox-container">Guardar Automáticamente
+        <input type="checkbox" id="autoSaveCheckbox">
+        <span class="checkmark"></span>
+    </label>
+    <button id="saveButton" class="button">Guardar</button>
+    <div class="editor" contenteditable="true" spellcheck="false"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="editor.js"></script>
+</body>
+
+</html>
