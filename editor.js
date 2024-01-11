@@ -1,122 +1,156 @@
+/**
+ * Event listener for when the DOM content has been loaded.
+ * Initializes the XML editor and handles file loading and saving.
+ * @function
+ */
 document.addEventListener('DOMContentLoaded', function () {
+    /**
+     * Container for the CodeMirror editor.
+     * @type {HTMLElement}
+     */
     const editorContainer = document.getElementById('editor');
+
+    /**
+     * Variable to store the original content of the editor.
+     * @type {string}
+     */
     let originalContent = '';
+
+    /**
+     * Variable to store the current file name.
+     * @type {string}
+     */
     let currentFileName = '';
 
-    const autoSaveCheckbox = document.getElementById('autoSaveCheckbox');
+    /**
+     * Save button element.
+     * @type {HTMLButtonElement}
+     */
     const saveButton = document.getElementById('saveButton');
-    const fileInput = document.getElementById('fileInput');
-    const loadButton = document.getElementById('loadButton');
-    const saveStatus = document.getElementById('saveStatus');
 
-    autoSaveCheckbox.addEventListener('change', function () {
-        // Si cambia la opción de guardado automático, actualiza el mensaje de estado
-        if (autoSaveCheckbox.checked) {
-            showSaveStatus();
-        }
-    });
+    /**
+     * File input element.
+     * @type {HTMLSelectElement}
+     */
+    const fileInput = document.getElementById('selectFile');
 
+    /**
+     * Event listener for the save button click.
+     * Calls the saveFile function.
+     */
     saveButton.addEventListener('click', function () {
-        // Cuando se hace clic en el botón de guardar manualmente
-        saveFile(true);
+        saveFile();
     });
 
-
+    /**
+     * Event listener for the file input click.
+     * Calls the loadFile function.
+     */
     function loadFile() {
-        fileInput.click();
+        const selectedFile = fileInput.options[fileInput.selectedIndex].value;
+        loadSampleFile(selectedFile);
     }
 
+    fileInput.addEventListener('click', loadFile);
 
-    loadButton.addEventListener('click', loadFile);
-
-    // Configuración del editor CodeMirror
+    /**
+     * Configuration for the CodeMirror editor.
+     */
     const editor = CodeMirror(editorContainer, {
         lineNumbers: true,
         mode: 'xml',
-        theme: 'dracula', // Puedes cambiar el tema según tus preferencias
-        indentUnit: 4,
+        theme: 'dracula',
+        indentWithTabs: true,  
+        indentUnit: 4,        
         tabSize: 4,
+        autoCloseTags: true,
+        lineWrapping: true,
     });
+    
 
     /**
-     * Saves the current content to a file and optionally updates the original content.
-     * @param {boolean} manualSave - Indica si el guardado es manual o no.
+     * Loads the content of the selected file into the editor.
+     * @param {string} fileName - The name of the selected file.
      */
-    function saveFile(manualSave = false) {
-        const content = editor.getValue();
-
-        // Si el guardado es automático, sobrescribe el archivo cargado
-        if (autoSaveCheckbox.checked && !manualSave) {
-            if (currentFileName) {
-                const blob = new Blob([content], { type: 'text/xml' });
-
-                // Verifica si el navegador es Internet Explorer
-                if (window.navigator && window.navigator.msSaveBlob) {
-                    window.navigator.msSaveBlob(blob, currentFileName);
-                } else {
-                    const a = document.createElement('a');
-                    a.href = URL.createObjectURL(blob);
-                    a.download = currentFileName;
-                    a.click();
-                }
-
-                originalContent = content; // Actualiza el contenido original
-                showSaveStatus(); // Muestra el mensaje de estado
-            }
+    function loadSampleFile(fileName) {
+        if (fileName === 'sample') {
+            // Load sample content directly into the editor
+            originalContent = `
+            <telefono modelo="Galaxy Z Flip3">
+                <caracteristicas>
+                    <pantalla tipo="AMOLED">
+                        <tamano>6.7 pulgadas</tamano>
+                        <resolucion>1080 x 2640 píxeles</resolucion>
+                    </pantalla>
+                    <procesador>
+                        <marca>Qualcomm</marca>
+                        <modelo>Snapdragon 888</modelo>
+                    </procesador>
+                    <almacenamiento interno="256 GB"/>
+                    <memoria_ram>8 GB</memoria_ram>
+                    <camaras>
+                        <principal>
+                            <resolucion>12 MP + 12 MP</resolucion>
+                            <apertura>f/1.8 + f/2.2</apertura>
+                        </principal>
+                        <frontal>
+                            <resolucion>10 MP</resolucion>
+                            <apertura>f/2.4</apertura>
+                        </frontal>
+                    </camaras>
+                    <bateria capacidad="3300 mAh"/>
+                </caracteristicas>
+                <sistema_operativo>Android 11</sistema_operativo>
+                <precio moneda="USD">1499.99</precio>
+            </telefono>
+            `;
+            editor.getDoc().setValue(originalContent);
         } else {
-            // Si el guardado es manual, abre la ventana para elegir la ubicación del archivo
-            const blob = new Blob([content], { type: 'text/xml' });
+            // Load content from a file
+            const sampleFilePath = '/' + fileName + '.xml';
+            const xhr = new XMLHttpRequest();
 
-            // Verifica si el navegador es Internet Explorer
-            if (window.navigator && window.navigator.msSaveBlob) {
-                window.navigator.msSaveBlob(blob, currentFileName || 'edited.xml');
-            } else {
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-
-                // Si hay un archivo cargado, mantiene el nombre original
-                if (currentFileName) {
-                    a.download = currentFileName;
-                } else {
-                    a.download = 'edited.xml';
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    originalContent = xhr.responseText;
+                    editor.getDoc().setValue(originalContent);
                 }
+            };
 
-                document.body.appendChild(a);
-                a.style.display = 'none';
-
-                a.addEventListener('click', function () {
-                    originalContent = content; // Actualiza el contenido original
-                    document.body.removeChild(a);
-                });
-
-                a.click();
-            }
+            xhr.open('GET', sampleFilePath, true);
+            xhr.send();
         }
     }
 
-    fileInput.addEventListener('change', function () {
-        const file = fileInput.files[0];
-
-        if (file) {
-            currentFileName = file.name; // Almacena el nombre del archivo cargado
-            const reader = new FileReader();
-
-            reader.onload = function (event) {
-                originalContent = event.target.result;
-                editor.setValue(originalContent); // Actualiza el contenido del editor
-            };
-
-            reader.readAsText(file);
-        }
-    });
-
     /**
-     * Displays a temporary status message indicating a successful save.
+     * Saves the current content to a file and optionally updates the original content.
+     * @param {boolean} manualSave - Indicates if the save action is manual or not.
      */
-    function showSaveStatus() {
-        saveStatus.style.display = 'inline';
-        setTimeout(() => {
-            saveStatus.style.display = 'none';
-        }, 2000);
+    function saveFile() {
+        const content = editor.getValue();
+        const blob = new Blob([content], { type: 'text/xml' });
+
+        if (window.navigator && window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(blob, currentFileName || 'edited.xml');
+        } else {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+
+            if (currentFileName) {
+                a.download = currentFileName;
+            } else {
+                a.download = 'edited.xml';
+            }
+
+            document.body.appendChild(a);
+            a.style.display = 'none';
+
+            a.addEventListener('click', function () {
+                originalContent = content;
+                document.body.removeChild(a);
+            });
+
+            a.click();
+        }
     }
 });

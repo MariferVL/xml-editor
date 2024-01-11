@@ -1,138 +1,172 @@
+/* Global styling for the entire page */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #1e1e1e;
+    padding: 1rem;
+    background-color: #0D0D0D;
     color: #d4d4d4;
 }
 
+/* Styling for the page header */
+header {
+    padding: 3rem 0;
+    text-align: center;
+}
+
+/* Styling for the main title in the header */
+header h1 {
+    margin: 3rem 0;
+    font-size: 2rem;
+}
+
+/* Styling for CodeMirror editor */
+.CodeMirror {
+    font-size: 1rem;
+}
+
+/* Styling for CodeMirror editor with Dracula theme */
+.CodeMirror.cm-s-dracula {
+    height: 29rem;
+}
+
+/* Styling for buttons */
+.button {
+    background-color: #F2A71B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 2px 2px 22px 2px;
+    cursor: pointer;
+    padding: 0.4rem 1.1rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styling for the XML editor container */
 .editor-container {
     width: 100%;
-    height: 110vh; 
-    padding: 20px;
+    height: 33rem;
+    padding: 1rem;
     box-sizing: border-box;
 }
 
-.CodeMirror.cm-s-dracula {
-    height: 29rem; 
+/* Styling for the save button */
+.save {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    padding: 1rem 2rem;
 }
 
-/* Estilos para los botones */
-.button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-#loadButton {
-    background-color: #3498db;
-    color: #fff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    margin: 8px 0;
-    cursor: pointer;
-}
-
-#loadButton:hover {
-    background-color: #2980b9;
-}
-
-/* Estilos para el input de agregar archivo */
-#fileInput {
-    display: none;
-}
-
-.file-input-label {
-    background-color: #3498db;
-    color: #fff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    margin: 8px 0;
-    cursor: pointer;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.file-input-label:hover {
-    background-color: #2980b9;
-}
-
-/* Estilos para la casilla de verificación */
-.checkbox-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 5px;
-}
-
-.checkbox-container input:checked + .checkmark {
-    background-color: #4CAF50;
-}
-
-.checkbox-container .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.checkbox-container input:checked + .checkmark:after {
-    display: block;
-}
-
-.checkbox-container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
-}
-
-/* Estilos para el mensaje de guardado */
-#saveStatus {
-    margin-left: 10px;
-    color: #4CAF50;
-    display: none;
-}
-
-/* Estilos para líneas modificadas */
+/* Styling for modified lines */
 .changed-line {
     background-color: #ffdb58;
+}
+
+/* Styling for the row container */
+#row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Styling for left and right boxes within the row */
+.left-box,
+.right-box {
+    width: 45%;
+    margin: 0 2rem 0;
+    padding: 0 8rem 0;
+}
+
+/* Styling for labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #d4d4d4;
+}
+
+/* Additional styling for a specific label in the left box */
+.left-box>label:nth-child(4) {
+    margin-top: 3.3rem;
+}
+
+/* Styling for dropdowns and input fields */
+select,
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Styling for custom dropdowns */
+.custom-dropdown {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* Styling for loading spinner */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+/* Keyframe animation for spinner rotation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Mobile Media Queries with vertical orientation */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    #row {
+        flex-direction: column;
+    }
+
+    .left-box,
+    .right-box {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+    }
+
+    header label,
+    .left-box>label:nth-child(4) {
+        margin-top: 1.1rem;
+    }
+}
+
+/* Mobile Media Queries with horizontal orientation  */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    #row {
+        flex-direction: column;
+    }
+
+    .left-box,
+    .right-box {
+        padding: 0 11rem;
+    }
 }

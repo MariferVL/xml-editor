@@ -1,31 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Meta tags for character set and viewport configuration -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta tag for specifying the author of the HTML document -->
+    <meta name="author" content="María-Fernanda Villalobos López">
+
+    <!-- Title of the HTML document -->
     <title>Editor XML</title>
+
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="A simple XML editor for creating and editing XML documents.">
+
+    <!-- Favicon for the website -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- External stylesheets for syntax highlighting and CodeMirror themes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/theme/dracula.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js"></script>
+
+    <!-- Custom stylesheet for additional styling -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <input type="file" id="fileInput" accept=".xml">
-    <button id="loadButton" class="button">Cargar Archivo</button>
-    <label class="checkbox-container">Guardar Automáticamente
-        <input type="checkbox" id="autoSaveCheckbox">
-        <span class="checkmark"></span>
-        <span id="saveStatus">Guardado</span>
-    </label>
-    <button id="saveButton" class="button">Guardar</button>
-    <div class="editor-container" id="editor"></div>
+    <!-- Header section containing the XML Editor title and input elements -->
+    <header>
+        <!-- Main title of the XML Editor centered on the page -->
+        <h1 style="text-align:center;">Editor XML</h1>
 
-    <script src="node_modules/codemirror/lib/codemirror.js"></script>
-    <script src="node_modules/codemirror/mode/xml/xml.js"></script>
-    <script src="node_modules/xml-js/dist/xml-js.js"></script>
+        <!-- Container for left and right boxes within the header -->
+        <div id="row">
+            <!-- Left box containing file-related dropdowns and spinners -->
+            <div class="left-box">
+                <!-- Label for the file dropdown -->
+                <label for="files">Archivo de configuración:</label>
+
+                <!-- Dropdown for selecting a file with default and example options -->
+                <select id="selectFile" name="files" class="custom-dropdown">
+                    <option disabled selected value> Selecciona un archivo </option>
+                    <option value="sample"> Ejemplo </option>
+                    <option value="nothing"> Nada </option>
+                </select>
+
+                <!-- Spinner for indicating file-related loading -->
+                <div class="spinner" id="fileSpinner"></div>
+
+                <!-- Label for the follow-up dropdown -->
+                <label for="followUps">Nombre del seguimiento:</label>
+
+                <!-- Dropdown for selecting a follow-up with a default option -->
+                <select id="followUps" name="followUps" class="custom-dropdown">
+                    <option disabled selected value> Selecciona un archivo </option>
+                </select>
+
+                <!-- Spinner for indicating follow-up-related loading -->
+                <div class="spinner" id="followUpSpinner"></div>
+            </div>
+
+            <!-- Right box containing input fields for creating and moving follow-ups -->
+            <div class="right-box">
+                <!-- Label for creating a new follow-up -->
+                <label for="newFollowUp">Crear Nuevo Seguimiento:</label>
+
+                <!-- Input field for entering a new follow-up name -->
+                <input type="text" id="newFollowUp" class="custom-dropdown" required>
+
+                <!-- Button for creating a new follow-up -->
+                <button type="button" id="create" class="button">Crear</button>
+
+                <!-- Label for moving a follow-up -->
+                <label for="moveFollowUp">Mover seguimiento a:</label>
+
+                <!-- Input field for entering the destination of the move -->
+                <input type="text" id="moveFollowUp" class="custom-dropdown" required>
+
+                <!-- Button for moving a follow-up -->
+                <button type="button" id="move" class="button">Mover</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main section containing the XML editor and save button -->
+    <main>
+        <!-- Container for the CodeMirror XML editor -->
+        <div class="editor-container" id="editor"></div>
+
+        <!-- Button for saving the content of the editor -->
+        <button type="button" id="saveButton" class="save button">Guardar</button>
+    </main>
+
+    <!-- External JavaScript libraries for CodeMirror and custom scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js"></script>
     <script src="editor.js"></script>
 </body>
 
