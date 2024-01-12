@@ -1,45 +1,71 @@
-# XML Editor - SRC Lab
+# XML Editor v1.3.0
 
-## Overview
+## Project Description
 
-This is a simple XML editor designed for engineers working with XML files. It allows you to load an XML file, view its content with syntax highlighting, and provides features for manual and automatic saving.
+This XML Editor project provides a user-friendly interface for creating and editing XML documents. It leverages the CodeMirror library for syntax highlighting and offers additional features for managing XML files. The editor supports loading sample files, creating new follow-ups, moving follow-ups, and saving the edited content.
 
-## Features
+## Project Structure
 
-- **Syntax Highlighting:** Utilizes Prism.js for syntax highlighting, making XML content more readable.
-- **Element Collapse/Expand:** Click on XML tags to collapse or expand their content for easier navigation.
-- **Manual and Auto Save:** Allows manual saving of edited content and provides an option for automatic saving.
+### Files
+
+- `index.html`: The main HTML file containing the structure of the editor interface.
+- `styles.css`: The stylesheet with global styling for the entire page.
+- `editor.js`: JavaScript file responsible for initializing the XML editor and handling file operations.
+- `package.json`: Project configuration file specifying dependencies (Codemirror and xml-js).
+
+### Dependencies
+
+- Codemirror v6.0.1: A versatile text editor implemented in JavaScript for the browser.
+- xml-js v1.6.11: A library for converting between XML and JavaScript objects.
 
 ## Getting Started
 
-1. Clone the repository:
+To use the XML Editor locally, follow these steps:
 
+1. **Clone the Repository**:
    ```bash
    git clone https://MariferVL@bitbucket.org/cdtfrontend/xml-editor.git
+   ```
 
-2. Open index.html in your web browser.
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd xml-editor
+   ```
 
-3. Load an XML file using the "Cargar Archivo" button.
+3. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-4.  Edit the content as needed.
+4. **Open the Editor**:
+   - Open `index.html` in your preferred web browser.
 
-5.  Save manually using the "Guardar Manualmente" button or enable auto-save.
+## Editor Features
 
-## Usage
+### 1. Load Sample Files
 
-    Load File: Click on "Cargar Archivo" to load an XML file.
-    Edit Content: Make changes to the XML content directly in the editor.
-    Manual Save: Click on "Guardar Manualmente" to manually save the edited content.
-    Auto Save: Enable the "Guardar Automáticamente" checkbox for automatic saving.
+   - Select a sample file from the dropdown in the header to load its content into the editor.
 
-## Customization
+### 2. Save Content
 
-Feel free to customize the styles and behavior by modifying the CSS and JavaScript files based on your preferences.
+   - Click the "Guardar" (Save) button to save the current content. The saved file will be named either based on the selected file or as "edited.xml" if it's a new file.
+
+### 3. CodeMirror Editor Features
+
+   - **Syntax Highlighting**: XML code is highlighted for better readability.
+   - **Line Numbers**: Line numbers are displayed for easy navigation.
+   - **AutoClose Tags**: Automatically closes XML tags for improved code structure.
+   - **Foldable Code Blocks**: Use 'Ctrl-Q' to fold and unfold code blocks, enhancing code organization.
+   - **Copy with Empty Selection**: Allows copying the entire line when no specific text is selected.
+
+### 4. Styling
+
+   - The editor interface is designed with a clean and responsive layout, utilizing a dark theme based on the Dracula color scheme. Styles include buttons, labels, dropdowns, and the CodeMirror editor.
 
 ## Contributing
 
-Contributions are welcome! If you have suggestions or encounter issues, please open an issue or submit a pull request.
+Feel free to contribute to the project by submitting issues or pull requests on [Bitbucket](https://bitbucket.org/cdtfrontend/xml-editor).
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
