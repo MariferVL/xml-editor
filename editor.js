@@ -60,13 +60,21 @@ document.addEventListener('DOMContentLoaded', function () {
         lineNumbers: true,
         mode: 'xml',
         theme: 'dracula',
-        indentWithTabs: true,  
-        indentUnit: 4,        
+        indentWithTabs: true,
+        indentUnit: 4,
         tabSize: 4,
         autoCloseTags: true,
+        copyWithEmptySelection: true,
         lineWrapping: true,
+        extraKeys: {
+            'Ctrl-Q': function (cm) {
+                cm.foldCode(cm.getCursor());
+            }
+        },
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
     });
-    
+
 
     /**
      * Loads the content of the selected file into the editor.

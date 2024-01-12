@@ -16,12 +16,20 @@
     <meta name="description" content="A simple XML editor for creating and editing XML documents.">
 
     <!-- Favicon for the website -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
 
     <!-- External stylesheets for syntax highlighting and CodeMirror themes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/fold/foldgutter.min.css">
+
+    <!-- External JavaScript libraries for CodeMirror and custom scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/fold/foldgutter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/fold/brace-fold.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/addon/fold/xml-fold.min.js"></script>
 
     <!-- Custom stylesheet for additional styling -->
     <link rel="stylesheet" href="styles.css">
@@ -94,10 +102,9 @@
         <button type="button" id="saveButton" class="save button">Guardar</button>
     </main>
 
-    <!-- External JavaScript libraries for CodeMirror and custom scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js"></script>
-    <script src="editor.js"></script>
+
+    <script defer src="editor.js"></script>
+
 </body>
 
 </html>
