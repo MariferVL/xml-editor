@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /**
      * Configuration for the CodeMirror editor.
+     * @see {@link https://codemirror.net/doc/manual.html#config CodeMirror Configuration}
      */
     const editor = CodeMirror(editorContainer, {
         lineNumbers: true,

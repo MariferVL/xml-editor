@@ -10,7 +10,7 @@
   "author": "María-Fernanda Villalobos López",
   "license": "MIT",
   "dependencies": {
-    "codemirror": "^6.0.1",
+    "codemirror": "^5.58.3",
     "xml-js": "^1.6.11"
   }
 }
