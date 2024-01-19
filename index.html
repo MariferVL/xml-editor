@@ -19,17 +19,9 @@
     <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
 
     <!-- Stylesheets for syntax highlighting and CodeMirror themes -->
-    <link rel="stylesheet" href="./node_modules/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="./node_modules/codemirror/theme/dracula.css">
-    <link rel="stylesheet" href="./node_modules/codemirror/addon/fold/foldgutter.css">
-    
-    <!-- JavaScript libraries for CodeMirror and custom scripts -->
-    <script src="./node_modules/codemirror/lib/codemirror.js"></script>
-    <script src="./node_modules/codemirror/mode/xml/xml.js"></script>
-    <script src="./node_modules/codemirror/addon/fold/foldcode.js"></script>
-    <script src="./node_modules/codemirror/addon/fold/foldgutter.js"></script>
-    <script src="./node_modules/codemirror/addon/fold/brace-fold.js"></script>
-    <script src="./node_modules/codemirror/addon/fold/xml-fold.js"></script>
+    <link rel="stylesheet" href="codemirror/codemirror.min.css">
+    <link rel="stylesheet" href="codemirror/dracula.min.css">
+    <link rel="stylesheet" href="codemirror/foldgutter.min.css">
 
     <!-- Custom stylesheet for additional styling -->
     <link rel="stylesheet" href="styles.css">
@@ -102,7 +94,13 @@
         <button type="button" id="saveButton" class="save button">Guardar</button>
     </main>
 
-
+    <!-- JavaScript libraries for CodeMirror and custom scripts -->
+    <script src="codemirror/codemirror.min.js"></script>
+    <script src="codemirror/xml.min.js"></script>
+    <script src="codemirror/foldcode.min.js"></script>
+    <script src="codemirror/foldgutter.min.js"></script>
+    <script src="codemirror/brace-fold.min.js"></script>
+    <script src="codemirror/xml-fold.min.js"></script>
     <script defer src="editor.js"></script>
 
 </body>

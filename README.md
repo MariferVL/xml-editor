@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This XML Editor project provides a user-friendly interface for creating and editing XML documents. It leverages the CodeMirror library for syntax highlighting and offers additional features for managing XML files. The editor supports loading sample files, creating new follow-ups, moving follow-ups, and saving the edited content.
+The XML Editor project provides a user-friendly interface for creating and editing XML documents. It leverages the CodeMirror library for syntax highlighting and offers additional features for managing XML files. The editor supports loading sample files, creating new follow-ups, moving follow-ups, and saving the edited content.
 
 ## Project Structure
 
@@ -11,14 +11,44 @@ This XML Editor project provides a user-friendly interface for creating and edit
 - `index.html`: The main HTML file containing the structure of the editor interface.
 - `styles.css`: The stylesheet with global styling for the entire page.
 - `editor.js`: JavaScript file responsible for initializing the XML editor and handling file operations.
-- `package.json`: Project configuration file specifying dependencies (Codemirror and xml-js).
 
 ### Dependencies
 
-- Codemirror v6.0.1: A versatile text editor implemented in JavaScript for the browser.
-- xml-js v1.6.11: A library for converting between XML and JavaScript objects.
+- No internet connection is required for dependencies, as Codemirror has been removed from npm. Instead, the necessary files are included in the project:
 
-## Getting Started
+  - `codemirror/brace-fold.min.js`
+  - `codemirror/codemirror.min.css`
+  - `codemirror/codemirror.min.js`
+  - `codemirror/dracula.min.css`
+  - `codemirror/foldcode.min.js`
+  - `codemirror/foldgutter.min.css`
+  - `codemirror/foldgutter.min.js`
+  - `codemirror/xml-fold.min.js`
+  - `codemirror/xml.min.js`
+
+### Project Tree
+
+📦xml-editor
+ ┣ 📂.git
+ ┣ 📜editor.js
+ ┣ 📜index.html
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┣ 📜sample.xml
+ ┣ 📂codemirror
+ ┃ ┣ 📜brace-fold.min.js
+ ┃ ┣ 📜codemirror.min.css
+ ┃ ┣ 📜codemirror.min.js
+ ┃ ┣ 📜dracula.min.css
+ ┃ ┣ 📜foldcode.min.js
+ ┃ ┣ 📜foldgutter.min.css
+ ┃ ┣ 📜foldgutter.min.js
+ ┃ ┣ 📜xml-fold.min.js
+ ┃ ┗ 📜xml.min.js
+ ┗ 📜styles.css
+
+### Getting Started
 
 To use the XML Editor locally, follow these steps:
 
@@ -32,12 +62,7 @@ To use the XML Editor locally, follow these steps:
    cd xml-editor
    ```
 
-3. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-
-4. **Open the Editor**:
+3. **Open the Editor**:
    - Open `index.html` in your preferred web browser.
 
 ## Editor Features
