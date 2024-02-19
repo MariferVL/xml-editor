@@ -54,7 +54,7 @@ To use the XML Editor locally, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://MariferVL@bitbucket.org/cdtfrontend/xml-editor.git
+   git clone https://github.com/MariferVL/xml-editor.git
    ```
 
 2. **Navigate to the Project Directory**:
@@ -89,7 +89,7 @@ To use the XML Editor locally, follow these steps:
 
 ## Contributing
 
-Feel free to contribute to the project by submitting issues or pull requests on [Bitbucket](https://bitbucket.org/cdtfrontend/xml-editor).
+Feel free to contribute to the project by submitting issues or pull requests on [Github](https://github.com/MariferVL/xml-editor).
 
 ## License
 
